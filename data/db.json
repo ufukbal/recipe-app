@@ -1,0 +1,104 @@
+{
+  "cocktails": [
+    {
+      "title": "asd",
+      "body": "asd",
+      "id": "d2a06f22-8646-48eb-bdbe-b191716c2a16",
+      "tagIds": [
+        "d2a06f22-8646-48eb-bdbe-b191716c2a16",
+        "aaad462d-38ed-484c-85ed-6389d89c147d",
+        "f94a6f61-4cb5-4b48-9c85-13d561cd65f6"
+      ]
+    },
+    {
+      "title": "11",
+      "body": "22",
+      "id": "b35d185c-c846-46cb-bf2a-216ac9578eac",
+      "tagIds": [
+        "cfc81240-597f-4470-90e1-6a4ff35c9331"
+      ]
+    },
+    {
+      "title": "asfasf133",
+      "body": "133",
+      "id": "0ff3cb61-cd10-4d03-91fe-d1a084da0a30",
+      "tagIds": [
+        "32e6467e-eddd-4327-b45e-b05449abf397"
+      ]
+    },
+    {
+      "title": "va",
+      "body": "vv",
+      "id": "7c9f952d-22cf-4260-affb-d9875b94d071",
+      "tagIds": [
+        "f7881d54-d07d-4c56-8a05-57af6c543852"
+      ]
+    },
+    {
+      "title": "hamburger",
+      "body": "burgeri yaparken kiymaya baharatlari eklemeden lokum icin ayirmayi unutma",
+      "id": "b60f0e90-a573-4490-a3c6-ffaf7b9f1d13",
+      "tagIds": [
+        "cf7c60ad-fdd8-4e1f-88e7-73708fdbc390",
+        "91644234-58fd-48af-86d6-db389fea6711",
+        "97d06284-2d6f-4266-8ebc-34b4a612ec0b",
+        "d4aa0580-4422-4dc3-a8e4-e39422b53184",
+        "e0d96031-e891-49a8-b074-e78a876f8b6a"
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "f94a6f61-4cb5-4b48-9c85-13d561cd65f6",
+      "label": "cin"
+    },
+    {
+      "id": "420c4948-06a1-4f21-8d60-1ed45055613a",
+      "label": "rom"
+    },
+    {
+      "id": "a1687fce-273e-4405-94d4-9ce143c0fd6e",
+      "label": "vodka"
+    },
+    {
+      "id": "32e6467e-eddd-4327-b45e-b05449abf397",
+      "label": "portakal likoru"
+    },
+    {
+      "id": "cfc81240-597f-4470-90e1-6a4ff35c9331",
+      "label": "1412"
+    },
+    {
+      "id": "f4247642-f8de-4ad0-8853-5e45b8ed7d74",
+      "label": "14"
+    },
+    {
+      "id": "f7881d54-d07d-4c56-8a05-57af6c543852",
+      "label": "viski"
+    },
+    {
+      "id": "1901871f-6b60-4ef4-98ba-bb3286a3f096",
+      "label": "cin"
+    },
+    {
+      "id": "cf7c60ad-fdd8-4e1f-88e7-73708fdbc390",
+      "label": "kiyma"
+    },
+    {
+      "id": "91644234-58fd-48af-86d6-db389fea6711",
+      "label": "tuz"
+    },
+    {
+      "id": "97d06284-2d6f-4266-8ebc-34b4a612ec0b",
+      "label": "karabiber"
+    },
+    {
+      "id": "d4aa0580-4422-4dc3-a8e4-e39422b53184",
+      "label": "yumurta"
+    },
+    {
+      "id": "e0d96031-e891-49a8-b074-e78a876f8b6a",
+      "label": "galeta unu"
+    }
+  ]
+}
