@@ -34,10 +34,10 @@ const RecipeDetail = ({ onDelete }: RecipeDetailProps) => {
                             </Link>
                         </div>
                     </div>
-                    <ul className='flex flex-col flex-wrap justify-between mb-5'>
-                        <div className="flex flex-wrap">{recipe.tags && recipe.tags.map((tag) => (
-                            <span className="bg-orange-600 text-orange-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{tag.label}</span>)
-                        )}</div>
+                    <ul className='flex flex-row flex-wrap mb-5 max-w-xs gap-1'>
+                        {recipe.ingredients && recipe.ingredients.map((ingredient) => (
+                            <span className={`${ingredient.isAvailable ? "bg-emerald-600" : "bg-orange-600"}  text-orange-100 text-xs font-medium px-2.5 py-0.5 rounded`}>{ingredient.label}</span>)
+                        )}
                     </ul>
 
                     <div>{recipe.body}</div>

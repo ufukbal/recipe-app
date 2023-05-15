@@ -1,14 +1,14 @@
-import React from "react";
-import { RecipeData, Tag } from "./App";
+import { RecipeData, IngredientType } from "./Types";
 import RecipeForm from "./RecipeForm";
 
 type NewRecipeProps = {
     onSubmit: (data: RecipeData) => void
-    onAddTag: (tag: Tag) => void
-    availableTags: Tag[]
+    onAddIngredient: (ingredient: IngredientType) => void
+    availableIngredients: IngredientType[]
+    onUpdateIngredient: (id: string, label: string) => void
 }
-const NewRecipe = ({ onSubmit, onAddTag, availableTags }: NewRecipeProps) => {
-    return <div><RecipeForm onSubmit={onSubmit} onAddTag={onAddTag} availableTags={availableTags} /></div>;
+const NewRecipe = ({ onSubmit, onAddIngredient, availableIngredients, onUpdateIngredient }: NewRecipeProps) => {
+    return <div><RecipeForm onSubmit={onSubmit} onAddIngredient={onAddIngredient} availableIngredients={availableIngredients} onUpdateIngredient={onUpdateIngredient} /></div>;
 };
 
 export default NewRecipe;

@@ -1,6 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import CocktailDetail from './CocktailDetail'
-import Home from './Home'
 import Navbar from './Navbar'
 import NewRecipe from './NewRecipe'
 import { v4 as uuidV4 } from "uuid"
@@ -10,48 +8,26 @@ import { Dispatch, useMemo } from 'react'
 import RecipeLayout from './RecipeLayout'
 import RecipeDetail from './RecipeDetail'
 import EditRecipe from './EditRecipe'
-export type Recipe = {
-  id: string
-} & RecipeData
-
-export type RawRecipe = {
-  id: string
-} & RawRecipeData
-
-export type RawRecipeData = {
-  title: string
-  body: string
-  tagIds: string[]
-}
-
-export type RecipeData = {
-  title: string
-  body: string
-  tags: Tag[]
-}
-
-export type Tag = {
-  id: string
-  label: string
-}
+import EditIngredients from './EditIngredients'
+import { IngredientType, RawRecipe, RecipeData } from './Types'
 
 function App() {
-  const { error, isLoading, data: tags, setData: setTags }: { error: string | null, isLoading: boolean, data: Tag[], setData: Dispatch<any> } = useFetch('http://localhost:8001/tags')
-  let { isLoading: recipesLoading, data: recipes, setData: setRecipes }: { error: string | null, isLoading: boolean, data: RawRecipe[], setData: Dispatch<any> } = useFetch('http://localhost:8001/cocktails')
+  const { error, isLoading, data: ingredients, setData: setIngredients }: { error: string | null, isLoading: boolean, data: IngredientType[], setData: Dispatch<any> } = useFetch('http://localhost:8001/ingredients')
+  let { isLoading: recipesLoading, data: recipes, setData: setRecipes }: { error: string | null, isLoading: boolean, data: RawRecipe[], setData: Dispatch<any> } = useFetch('http://localhost:8001/recipes')
 
-  const recipesWithTags = useMemo(() => {
+  const recipesWithIngredients = useMemo(() => {
     console.log(recipes);
     return recipes?.map(recipe => {
-      return { ...recipe, tags: tags.filter(tag => recipe.tagIds.includes(tag.id)) }
+      return { ...recipe, ingredients: ingredients.filter(ingredient => recipe.ingredientIds.includes(ingredient.id)) }
     })
-  }, [recipes, tags])
+  }, [recipes, ingredients])
 
-  const onCreateRecipes = async ({ tags, ...data }: RecipeData) => {
+  const onCreateRecipes = async ({ ingredients, ...data }: RecipeData) => {
     const newRecipe = {
-      ...data, id: uuidV4(), tagIds: tags.map(tag => tag.id)
+      ...data, id: uuidV4(), ingredientIds: ingredients.map(ingredient => ingredient.id)
     }
     try {
-      const response = await fetch('http://localhost:8001/cocktails', {
+      const response = await fetch('http://localhost:8001/recipes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -66,12 +42,12 @@ function App() {
       console.log(err);
     }
   }
-  const onUpdateRecipes = async (id: string, { tags, ...data }: RecipeData) => {
+  const onUpdateRecipes = async (id: string, { ingredients, ...data }: RecipeData) => {
     const edittedRecipe = {
-      ...data, id: id, tagIds: tags.map(tag => tag.id)
+      ...data, id: id, ingredientIds: ingredients.map(ingredient => ingredient.id)
     }
     try {
-      const response = await fetch('http://localhost:8001/cocktails/' + id, {
+      const response = await fetch('http://localhost:8001/recipes/' + id, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -93,43 +69,43 @@ function App() {
     }
   }
 
-  const addTag = async (tag: Tag) => {
+  const addIngredient = async (ingredient: IngredientType) => {
+    const newIngredient = { ...ingredient }
     try {
-      const response = await fetch('http://localhost:8001/tags', {
+      const response = await fetch('http://localhost:8001/ingredients', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(tag)
+        body: JSON.stringify(newIngredient)
       });
       const data = await response.json();
-      console.log(data);
-      setTags([...tags, data]);
+      setIngredients([...ingredients, data]);
     }
     catch (err) {
       console.log(err);
     }
   }
 
-  const onUpdateIngredient = async (id: string, label: string) => {
-    const edittedTag = {
-      id: id, label: label
+  const onUpdateIngredient = async (id: string, label: string, isAvailable: boolean) => {
+    const edittedIngredient = {
+      id: id, label: label, isAvailable: isAvailable
     }
     try {
-      const response = await fetch('http://localhost:8001/tags/' + id, {
+      const response = await fetch('http://localhost:8001/ingredients/' + id, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(edittedTag)
+        body: JSON.stringify(edittedIngredient)
       });
       const data = await response.json();
       console.log(data);
-      setTags(tags.map(tag => {
-        if (tag.id === id) {
-          return edittedTag;
+      setIngredients(ingredients.map(ingredient => {
+        if (ingredient.id === id) {
+          return edittedIngredient;
         } else {
-          return tag;
+          return ingredient;
         }
       }));
     }
@@ -139,12 +115,12 @@ function App() {
   }
   const onDeleteIngredient = async (id: string) => {
     try {
-      const response = await fetch('http://localhost:8001/tags/' + id, {
+      const response = await fetch('http://localhost:8001/ingredients/' + id, {
         method: 'DELETE'
       });
       const data = await response.json();
-      setTags((prevTags: Tag[]) => {
-        return prevTags.filter(tag => tag.id !== id)
+      setIngredients((prevIngs: IngredientType[]) => {
+        return prevIngs.filter(ingredient => ingredient.id !== id)
       })
 
     }
@@ -155,7 +131,7 @@ function App() {
 
   const onDeleteRecipe = async (id: string) => {
     try {
-      const response = await fetch('http://localhost:8001/cocktails/' + id, {
+      const response = await fetch('http://localhost:8001/recipes/' + id, {
         method: 'DELETE'
       });
       const data = await response.json();
@@ -173,14 +149,15 @@ function App() {
   return (
     <div className=''>
       <Navbar />
-      {!recipesLoading && <div className='my-10 mx-auto max-w-2xl p-5'>
+      {!recipesLoading && <div className='my-4 mx-auto max-w-2xl p-5'>
         <Routes>
-          <Route path="/" element={<RecipeList availableTags={tags} recipes={recipesWithTags} onUpdateIngredient={onUpdateIngredient} onDeleteIngredient={onDeleteIngredient} />} />
-          <Route path="/create" element={<NewRecipe onSubmit={onCreateRecipes} onAddTag={addTag} availableTags={tags} />} />
-          <Route path="recipes/:id" element={<RecipeLayout recipes={recipesWithTags} />}>
+          <Route path="/" element={<RecipeList availableIngredients={ingredients} recipes={recipesWithIngredients} onUpdateIngredient={onUpdateIngredient} onDeleteIngredient={onDeleteIngredient} />} />
+          <Route path="/create" element={<NewRecipe onSubmit={onCreateRecipes} onAddIngredient={addIngredient} availableIngredients={ingredients} onUpdateIngredient={onUpdateIngredient} />} />
+          <Route path="recipes/:id" element={<RecipeLayout recipes={recipesWithIngredients} />}>
             <Route index element={<RecipeDetail onDelete={onDeleteRecipe} />} />
-            <Route path="edit" element={<EditRecipe onSubmit={onUpdateRecipes} onAddTag={addTag} availableTags={tags} />} />
+            <Route path="edit" element={<EditRecipe onSubmit={onUpdateRecipes} onAddIngredient={addIngredient} availableIngredients={ingredients} onUpdateIngredient={onUpdateIngredient} />} />
           </Route>
+          <Route path="/ingredients" element={<EditIngredients availableIngredients={ingredients} onAddIngredient={addIngredient} onUpdateIngredient={onUpdateIngredient} onDeleteIngredient={onDeleteIngredient} />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>}
