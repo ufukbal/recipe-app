@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CreatableReactSelect from "react-select/creatable";
-import { RecipeData, IngredientType } from "./Types";
+import { RecipeData, IngredientType } from "../types/Types";
 import { v4 as uuidV4 } from "uuid"
 import Ingredient from "./Ingredient";
 
@@ -25,7 +25,7 @@ const RecipeForm = ({ onSubmit, onAddIngredient, availableIngredients, title = "
             body: bodyRef.current!.value,
             ingredients: selectedIngredients
         })
-        navigate("..")
+        navigate("/");
     }
 
     const onNewRecipeDeleteIngredient = (id: string) => {

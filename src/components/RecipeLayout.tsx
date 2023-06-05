@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useOutletContext, useParams } from "react-router-dom";
-import { Recipe } from "./Types";
+import { Recipe } from "../types/Types";
 
 type RecipeLayoutProps = {
     recipes: Recipe[];

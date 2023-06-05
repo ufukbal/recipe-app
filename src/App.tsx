@@ -1,31 +1,33 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Navbar from './Navbar'
-import NewRecipe from './NewRecipe'
+import Navbar from './components/Navbar'
+import NewRecipe from './components/NewRecipe'
 import { v4 as uuidV4 } from "uuid"
-import useFetch from './useFetch'
-import RecipeList from './RecipeList'
+import useFetch from './hooks/useFetch'
+import RecipeList from './components/RecipeList'
 import { Dispatch, useMemo } from 'react'
-import RecipeLayout from './RecipeLayout'
-import RecipeDetail from './RecipeDetail'
-import EditRecipe from './EditRecipe'
-import EditIngredients from './EditIngredients'
-import { IngredientType, RawRecipe, RecipeData } from './Types'
+import RecipeLayout from './components/RecipeLayout'
+import RecipeDetail from './components/RecipeDetail'
+import EditRecipe from './components/EditRecipe'
+import EditIngredients from './components/EditIngredients'
+import { IngredientType, RawRecipe, RecipeData } from './types/Types'
 
 function App() {
-  const { error, isLoading, data: ingredients, setData: setIngredients }: { error: string | null, isLoading: boolean, data: IngredientType[], setData: Dispatch<any> } = useFetch('http://localhost:8001/ingredients')
+  let { error, isLoading, data: ingredients, setData: setIngredients }: { error: string | null, isLoading: boolean, data: IngredientType[], setData: Dispatch<any> } = useFetch('http://localhost:8001/ingredients')
   let { isLoading: recipesLoading, data: recipes, setData: setRecipes }: { error: string | null, isLoading: boolean, data: RawRecipe[], setData: Dispatch<any> } = useFetch('http://localhost:8001/recipes')
 
   const recipesWithIngredients = useMemo(() => {
-    console.log(recipes);
     return recipes?.map(recipe => {
       return { ...recipe, ingredients: ingredients.filter(ingredient => recipe.ingredientIds.includes(ingredient.id)) }
     })
   }, [recipes, ingredients])
 
-  const onCreateRecipes = async ({ ingredients, ...data }: RecipeData) => {
+  const onCreateRecipes = async ({ ...data }: RecipeData) => {
     const newRecipe = {
-      ...data, id: uuidV4(), ingredientIds: ingredients.map(ingredient => ingredient.id)
+      title: data.title, body: data.body, id: uuidV4(), ingredientIds: data.ingredients.map(ingredient => ingredient.id)
     }
+    const ids = new Set(ingredients.map(d => d.id));
+    var merged = [...ingredients, ...data.ingredients.filter(d => !ids.has(d.id))];
+    setIngredients(merged)
     try {
       const response = await fetch('http://localhost:8001/recipes', {
         method: 'POST',
@@ -35,17 +37,19 @@ function App() {
         body: JSON.stringify(newRecipe)
       });
       const data = await response.json();
-      console.log(data);
       setRecipes([...recipes, data]);
     }
     catch (err) {
       console.log(err);
     }
   }
-  const onUpdateRecipes = async (id: string, { ingredients, ...data }: RecipeData) => {
+  const onUpdateRecipes = async (id: string, { ...data }: RecipeData) => {
     const edittedRecipe = {
-      ...data, id: id, ingredientIds: ingredients.map(ingredient => ingredient.id)
+      body: data.body, id: id, ingredientIds: data.ingredients.map(ingredient => ingredient.id)
     }
+    const ids = new Set(ingredients.map(d => d.id));
+    var merged = [...ingredients, ...data.ingredients.filter(d => !ids.has(d.id))];
+    setIngredients(merged)
     try {
       const response = await fetch('http://localhost:8001/recipes/' + id, {
         method: 'PUT',
@@ -55,7 +59,6 @@ function App() {
         body: JSON.stringify(edittedRecipe)
       });
       const data = await response.json();
-      console.log(data);
       setRecipes(recipes.map(recipe => {
         if (recipe.id === id) {
           return edittedRecipe;
@@ -100,7 +103,6 @@ function App() {
         body: JSON.stringify(edittedIngredient)
       });
       const data = await response.json();
-      console.log(data);
       setIngredients(ingredients.map(ingredient => {
         if (ingredient.id === id) {
           return edittedIngredient;
@@ -135,7 +137,6 @@ function App() {
         method: 'DELETE'
       });
       const data = await response.json();
-      console.log(data);
       setRecipes((prevState: RawRecipe[]) => {
         return prevState.filter(recipe => recipe.id !== id)
       })

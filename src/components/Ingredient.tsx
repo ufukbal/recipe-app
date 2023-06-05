@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IngredientType } from "./Types";
+import { IngredientType } from "../types/Types";
 
 type IngredientsProps = {
     ingredient: IngredientType

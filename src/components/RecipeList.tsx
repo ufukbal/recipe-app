@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactSelect from "react-select/";
-import { IngredientType } from "./Types";
+import { IngredientType } from "../types/Types";
 
 type RecipeListProps = {
     availableIngredients: IngredientType[]
@@ -18,19 +18,11 @@ type SimplifiedRecipe = {
 
 const RecipeList = ({
     availableIngredients,
-    recipes,
-    onDeleteIngredient,
-    onUpdateIngredient
+    recipes
 }: RecipeListProps) => {
     const [selectedIngredients, setSelectedIngredients] = useState<IngredientType[]>([]);
     const [title, setTitle] = useState("");
     const [showAvailableRecipes, setShowAvailableRecipes] = useState(false);
-
-    // const availableRecipes = useMemo(() => {
-    //     return recipes.filter(recipe => {
-    //         return recipe.ingredients.every((ing) => ing.isAvailable)
-    //     })
-    // }, [recipes])
 
     const filteredRecipes = useMemo(() => {
         return recipes.filter(recipe => {
@@ -45,15 +37,6 @@ const RecipeList = ({
         })
     }, [title, selectedIngredients, recipes, showAvailableRecipes]);
     const [renderedRecipes, setRenderedRecipes] = useState<SimplifiedRecipe[]>(filteredRecipes);
-
-    // useEffect(() => {
-    //     if (showAvailableRecipes) {
-    //         setRenderedRecipes(availableRecipes)
-    //     }
-
-    //     else setRenderedRecipes(filteredRecipes)
-    // }, [showAvailableRecipes]);
-
 
     return (
         <>
@@ -97,7 +80,7 @@ const RecipeList = ({
             </form>
             <div className="grid mb-8 gap-4 md:grid-cols-2">
                 {recipes && filteredRecipes?.map(recipe => (
-                    <RecipeCard id={recipe.id} title={recipe.title} ingredients={recipe.ingredients} />
+                    <RecipeCard id={recipe.id} key={recipe.id} title={recipe.title} ingredients={recipe.ingredients} />
                 ))}
 
             </div>
@@ -106,12 +89,11 @@ const RecipeList = ({
 
 const RecipeCard = ({ id, title, ingredients }: SimplifiedRecipe) => {
     const isRecipeAvailable = ingredients.every((ing) => ing.isAvailable)
-    console.log(title, isRecipeAvailable)
     return <Link to={`recipes/${id}`} className="border-2 border-gray-50 hover:shadow-md flex flex-col text-center py-3 px-4 ">
         <div key={id} >
             <h2 className='text-cyan-600 text-xl font-medium mb-2'>{title}</h2>
             <div className="flex justify-center flex-wrap gap-0.5">{ingredients && ingredients.map((ingredient) => (
-                <span className={`${ingredient.isAvailable ? "bg-emerald-600" : "bg-orange-600"}  text-orange-100 text-xs font-medium px-2.5 py-0.5 rounded`}>{ingredient.label}</span>)
+                <span key={ingredient.id} className={`${ingredient.isAvailable ? "bg-emerald-600" : "bg-orange-600"}  text-orange-100 text-xs font-medium px-2.5 py-0.5 rounded`}>{ingredient.label}</span>)
             )}</div>
         </div >
     </Link >

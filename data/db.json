@@ -1,26 +1,6 @@
 {
   "recipes": [
     {
-      "title": "asdfx",
-      "body": "asd",
-      "id": "d2a06f22-8646-48eb-bdbe-b191716c2a16",
-      "ingredientIds": [
-        "fd28d6d5-7c5e-4ddc-9294-ed8b4c3be75b"
-      ]
-    },
-    {
-      "title": "azx",
-      "body": "azx",
-      "id": "7a8e2ad5-ce32-4bcc-a84a-2c7e55213715",
-      "ingredientIds": [
-        "fd28d6d5-7c5e-4ddc-9294-ed8b4c3be75b",
-        "dfbe2ac4-2536-47c5-b94a-9391e426e15c",
-        "94dc07c4-6c66-4ffb-8dcc-6e2492715d3f",
-        "be48a58b-91e6-46f5-9106-00317544ec9f",
-        "aa020189-1eab-4522-bd6a-9ca50e735126"
-      ]
-    },
-    {
       "title": "Hemingway",
       "body": "Pour all ingredients into a shaker with ice. Shake.",
       "id": "aff0041b-cef8-4cb9-86a0-8532f5f9171b",
@@ -31,28 +11,21 @@
       ]
     },
     {
-      "title": "asf",
-      "body": "cvzv",
-      "id": "eea7afc6-142b-4961-9848-c0cf98fe8714",
+      "title": "Whiskey Sour",
+      "body": "Simple but perfect",
+      "id": "3e881664-9c1c-4d67-b5b1-d1c4856d2e2f",
       "ingredientIds": [
-        "dfbe2ac4-2536-47c5-b94a-9391e426e15c",
-        "fd28d6d5-7c5e-4ddc-9294-ed8b4c3be75b"
+        "e3882881-7b9f-4c19-8bd6-5c6d8870bce2",
+        "2a898493-daee-4efa-818c-4ca740da49cc"
       ]
     },
     {
-      "title": "asd",
-      "body": "asd",
-      "id": "3a6477d8-9331-4fed-b60d-6a689eee5ac1",
+      "title": "Gin Tonic",
+      "body": "self explanatory",
+      "id": "390e3b69-68bf-4c4a-8a64-662d26335e6b",
       "ingredientIds": [
-        "dfbe2ac4-2536-47c5-b94a-9391e426e15c"
-      ]
-    },
-    {
-      "title": "asf",
-      "body": "asf",
-      "id": "6a63ad8f-993a-46f7-bf05-440d1bcc5986",
-      "ingredientIds": [
-        "fd28d6d5-7c5e-4ddc-9294-ed8b4c3be75b"
+        "d772ea46-5c5c-41d2-ae4c-55beed8b7252",
+        "01215e4a-8258-43d0-92d5-f56bba8a1e70"
       ]
     }
   ],
@@ -73,33 +46,23 @@
       "isAvailable": true
     },
     {
-      "id": "57946e1e-026e-4199-9cf8-3d5bca5c6f41",
-      "label": "Liasdmeasd",
+      "id": "d772ea46-5c5c-41d2-ae4c-55beed8b7252",
+      "label": "Gin",
       "isAvailable": true
     },
     {
-      "id": "be48a58b-91e6-46f5-9106-00317544ec9f",
-      "label": "asd",
+      "id": "e3882881-7b9f-4c19-8bd6-5c6d8870bce2",
+      "label": "Lemon",
       "isAvailable": true
     },
     {
-      "id": "aa020189-1eab-4522-bd6a-9ca50e735126",
-      "label": "fasfzxc",
+      "id": "2a898493-daee-4efa-818c-4ca740da49cc",
+      "label": "Whiskey",
       "isAvailable": true
     },
     {
-      "id": "407e6e38-ec93-421b-803e-0f21dbad744c",
-      "label": "kkljlkjlkj",
-      "isAvailable": true
-    },
-    {
-      "id": "2babebea-65a7-4dd2-b194-d4afffefe7fb",
-      "label": "asd",
-      "isAvailable": true
-    },
-    {
-      "id": "78043ed6-339c-4b0c-b300-7780131b48ab",
-      "label": "sad",
+      "id": "01215e4a-8258-43d0-92d5-f56bba8a1e70",
+      "label": "Tonic Water",
       "isAvailable": true
     }
   ]

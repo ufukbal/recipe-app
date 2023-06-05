@@ -36,7 +36,7 @@ const RecipeDetail = ({ onDelete }: RecipeDetailProps) => {
                     </div>
                     <ul className='flex flex-row flex-wrap mb-5 max-w-xs gap-1'>
                         {recipe.ingredients && recipe.ingredients.map((ingredient) => (
-                            <span className={`${ingredient.isAvailable ? "bg-emerald-600" : "bg-orange-600"}  text-orange-100 text-xs font-medium px-2.5 py-0.5 rounded`}>{ingredient.label}</span>)
+                            <span key={ingredient.id} className={`${ingredient.isAvailable ? "bg-emerald-600" : "bg-orange-600"}  text-orange-100 text-xs font-medium px-2.5 py-0.5 rounded`}>{ingredient.label}</span>)
                         )}
                     </ul>
 

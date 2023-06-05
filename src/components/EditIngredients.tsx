@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { IngredientType } from "./Types"
+import { IngredientType } from "../types/Types"
 import Ingredient from "./Ingredient"
 import CreatableReactSelect from "react-select/creatable";
 import { v4 as uuidV4 } from "uuid"

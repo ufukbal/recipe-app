@@ -1,4 +1,4 @@
-import { RecipeData, IngredientType } from "./Types";
+import { RecipeData, IngredientType } from "../types/Types";
 import RecipeForm from "./RecipeForm";
 
 type NewRecipeProps = {
